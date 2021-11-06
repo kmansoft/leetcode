@@ -65,10 +65,11 @@ int maxPoints(const std::vector<std::vector<int>>& points) {
 	}
 
 	int maxCount = 0;
+	std::unordered_set<Line> lineSet;
 
 	for (int i = 0; i < size; i += 1) {
 		const std::vector<int>& pt0 = points[i];
-		std::unordered_set<Line> lineSet;
+		lineSet.clear();
 
 		for (int j = i + 1; j < size; j += 1) {
 			const std::vector<int>& pt1 = points[j];
