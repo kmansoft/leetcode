@@ -1,9 +1,11 @@
 #include <cstdlib>
 #include <cstring>
 #include <cstdio>
+#include <vector>
+#include <string>
 
 class Board {
-friend class Printer;
+friend class Output;
 
 public:
 	Board();
@@ -38,46 +40,52 @@ bool Board::set(int col, int row) {
 	return true;
 }
 
-class Printer {
+class Output {
 public:
-	Printer();
+	Output();
 
-	void print(const Board& board, int size);
+	void output(const Board& board, int size);
+	std::vector<std::vector<std::string>> getOutput();
 
 private:
-	int mCount;
+	std::vector<std::vector<std::string>> mOutput;
 };
 
-Printer::Printer(): mCount(0) {
+Output::Output() {
 }
 
-void Printer::print(const Board& board, int size) {
-	if (mCount++ > 0) {
-		putchar('\n');
-	}
+void Output::output(const Board& board, int size) {
+	std::vector<std::string> out;
 
 	for (int row = size - 1; row >= 0; row -= 1) {
+		std::string line;
 		for (int col = 0; col < size; col += 1) {
 			if (board.mRow[col] == row) {
-				putchar('*');
+				line.append("Q");
 			} else {
-				putchar('-');
+				line.append(".");
 			}
 		}
-		putchar('\n');
+		out.push_back(line);
 	}
+
+	mOutput.push_back(out);
+}
+
+std::vector<std::vector<std::string>> Output::getOutput() {
+	return mOutput;
 }
 
 void generate(Board board,
 	int curr, int size,
-	Printer& printer) {
+	Output& output) {
 
 	for (int row = 0; row < size; row += 1) {
 		if (board.set(curr, row)) {
 			if (curr + 1 == size) {
-				printer.print(board, size);
+				output.output(board, size);
 			} else {
-				generate(board, curr + 1, size, printer);
+				generate(board, curr + 1, size, output);
 			}
 		}
 	}
@@ -85,8 +93,19 @@ void generate(Board board,
 
 void queens(int size) {
 	Board board;
-	Printer printer;
+	Output output;
 
+	generate(board, 0, size, output);
 
-	generate(board, 0, size, printer);
+	auto solutionList = output.getOutput();
+	for (auto solutionIt = solutionList.begin(); solutionIt != solutionList.end(); solutionIt++) {
+		if (solutionIt != solutionList.begin()) {
+			puts("");
+		}
+
+		auto solution = *solutionIt;
+		for (auto lineIt = solution.begin(); lineIt != solution.end(); lineIt ++) {
+			puts((*lineIt).c_str());
+		}
+	}
 }
