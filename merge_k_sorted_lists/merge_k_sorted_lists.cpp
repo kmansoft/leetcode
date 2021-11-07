@@ -9,31 +9,11 @@ struct ListNode {
 	ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-ListNode* mergeKLists(std::vector<ListNode*>& lists) {
-	ListNode* head = nullptr;
-	ListNode* tail = nullptr;
+struct List {
+	ListNode *head, *tail;
 
-	while (true) {
-		int minIndex = -1;
-		int minValue = 0;
-
-		for (int i = 0; i < lists.size(); i += 1) {
-			ListNode* node = lists[i];
-			if (node != nullptr) {
-				if (minIndex == -1 || minValue > node->val) {
-					minIndex = i;
-					minValue = node->val;
-				}
-			}
-		}
-
-		if (minIndex == -1) {
-			return head;
-		}
-
-		ListNode* node = lists[minIndex];
-		lists[minIndex] = node->next;
-
+	List() : head(nullptr), tail(nullptr) {}
+	void add(ListNode* node) {
 		if (head == nullptr) {
 			head = tail = node;
 		} else {
@@ -42,24 +22,62 @@ ListNode* mergeKLists(std::vector<ListNode*>& lists) {
 		}
 		node->next = nullptr;
 	}
+};
+
+ListNode* merge2Lists(ListNode* a, ListNode *b) {
+	List result;
+	ListNode *next;
+
+	while (a != nullptr && b != nullptr) {
+		if (a->val < b->val) {
+			next = a->next;
+			result.add(a);
+			a = next;
+		} else {
+			next = b->next;
+			result.add(b);
+			b = next;
+		}
+	}
+
+	while (a != nullptr) {
+		next = a->next;
+		result.add(a);
+		a = next;
+	}
+
+	while (b != nullptr) {
+		next = b->next;
+		result.add(b);
+		b = next;
+	}
+
+	return result.head;
+}
+
+ListNode* mergeKLists(std::vector<ListNode*>& lists) {
+	ListNode *result = nullptr;
+	int size = lists.size();
+
+	if (size > 0) {
+		result = lists[0];
+		for (int i = 1; i < size; i += 1) {
+			result = merge2Lists(result, lists[i]);
+		}
+	}
+
+	return result;
 }
 
 ListNode* make_list(const std::vector<int> init) {
-	ListNode *head = nullptr;
-	ListNode *tail = nullptr;
+	List result;
 
 	for (int i : init) {
 		ListNode *node = new ListNode(i);
-		if (head == nullptr) {
-			head = tail = node;
-		} else {
-			tail->next = node;
-			tail = node;
-		}
-		node->next = nullptr;
+		result.add(node);
 	}
 
-	return head;
+	return result.head;
 }
 
 int main() {
