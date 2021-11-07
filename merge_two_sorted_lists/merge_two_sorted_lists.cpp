@@ -24,32 +24,32 @@ struct List {
 	}
 };
 
-ListNode* merge2Lists(ListNode* a, ListNode *b) {
+ListNode* merge2Lists(ListNode* l1, ListNode *l2) {
 	List result;
 	ListNode *next;
 
-	while (a != nullptr && b != nullptr) {
-		if (a->val < b->val) {
-			next = a->next;
-			result.add(a);
-			a = next;
+	while (l1 != nullptr && l2 != nullptr) {
+		if (l1->val < l2->val) {
+			next = l1->next;
+			result.add(l1);
+			l1 = next;
 		} else {
-			next = b->next;
-			result.add(b);
-			b = next;
+			next = l2->next;
+			result.add(l2);
+			l2 = next;
 		}
 	}
 
-	while (a != nullptr) {
-		next = a->next;
-		result.add(a);
-		a = next;
+	while (l1 != nullptr) {
+		next = l1->next;
+		result.add(l1);
+		l1 = next;
 	}
 
-	while (b != nullptr) {
-		next = b->next;
-		result.add(b);
-		b = next;
+	while (l2 != nullptr) {
+		next = l2->next;
+		result.add(l2);
+		l2 = next;
 	}
 
 	return result.head;
