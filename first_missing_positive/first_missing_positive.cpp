@@ -46,24 +46,28 @@ int firstMissingPositive(std::vector<int>& nums) {
 	return expected + 1;
 }
 
+void test(std::vector<int>& v) {
+	std::cout << v << firstMissingPositive(v) << " " << v << std::endl;
+}
+
 int main() {
 	std::vector<int> n0 = {1,2,0};
-	std::cout << n0 << firstMissingPositive(n0) << std::endl;
+	test(n0);
 
 	std::vector<int> n1 = {3,4,-1,1};
-	std::cout << n1 << firstMissingPositive(n1) << std::endl;
+	test(n1);
 
 	std::vector<int> n2 = {7,8,9,11,12};
-	std::cout << n2 << firstMissingPositive(n2) << std::endl;
+	test(n2);
 
 	std::vector<int> n3 = {0, 2, 1};
-	std::cout << n3 << firstMissingPositive(n3) << std::endl;
+	test(n3);
 
 	std::vector<int> n4 = {0, 2, 2, 1, 1};
-	std::cout << n4 << firstMissingPositive(n4) << std::endl;
+	test(n4);
 
 	std::vector<int> n5 = {1, 1};
-	std::cout << n5 << firstMissingPositive(n5) << std::endl;
+	test(n5);
 
 	return 0;
 }
