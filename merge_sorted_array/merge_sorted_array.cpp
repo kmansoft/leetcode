@@ -48,13 +48,12 @@ std::ostream& operator<<(std::ostream& os, std::vector<T> v) {
 	return os;
 }
 
-
 int main() {
-	// std::vector nums1 = {1,2,3,0,0,0};
-	// std::vector nums2 = {2,5,6};
+	std::vector nums1 = {1,2,3,0,0,0};
+	std::vector nums2 = {2,5,6};
 
-	std::vector nums1 = {0};
-	std::vector nums2 = {1};
+	// std::vector nums1 = {0};
+	// std::vector nums2 = {1};
 
 	mergeSortedArrays(nums1, 0, nums2, 1);
 
