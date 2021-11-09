@@ -62,8 +62,6 @@ std::vector<std::vector<int>> palindromePairs(std::vector<std::string>& words) {
 		const auto& word = words[i];
 		const auto len = word.length();
 
-		std::cout << "Checking " << word << std::endl;
-
 		if (len == 0) {
 			for (int j = 0; j < size; j += 1) {
 				const auto& word = words[j];
@@ -80,7 +78,6 @@ std::vector<std::vector<int>> palindromePairs(std::vector<std::string>& words) {
 				if (prefixFind != end) {
 					const auto pair = *prefixFind;
 					if (pair.second != i && isPalindrome(word, j, len)) {
-						std::cout << "Adding prefix " << i << ", " << pair.second << std::endl;
 						pairs.push_back({i, pair.second});
 					}
 				}
@@ -90,7 +87,6 @@ std::vector<std::vector<int>> palindromePairs(std::vector<std::string>& words) {
 					if (suffixFind != end) {
 						const auto pair = *suffixFind;
 						if (pair.second != i && isPalindrome(word, 0, len - j)) {
-							std::cout << "Adding suffix " << i << ", " << pair.second << std::endl;
 							pairs.push_back({pair.second, i});
 						}
 					}
