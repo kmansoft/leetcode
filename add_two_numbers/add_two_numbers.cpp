@@ -56,31 +56,19 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 	int carry = 0;
 	List list;
 
-	while (l1 != nullptr && l2 != nullptr) {
-		int value = l1->val + l2->val + carry;
+	while (l1 != nullptr || l2 != nullptr || carry != 0) {
+		int value = carry;
+		if (l1 != nullptr) {
+			value += l1->val;
+			l1 = l1->next;
+		}
+		if (l2 != nullptr) {
+			value += l2->val;
+			l2 = l2->next;
+		}
+
 		carry = value / 10;
 		ListNode *node = new ListNode(value % 10);
-		list.add(node);
-
-		l1 = l1->next;
-		l2 = l2->next;
-	}
-
-	ListNode *tail = l1;
-	if (tail == nullptr) {
-		tail = l2;
-	}
-	while (tail != nullptr) {
-		int value = tail->val + carry;
-		carry = value / 10;
-		ListNode *node = new ListNode(value % 10);
-		list.add(node);
-
-		tail = tail->next;
-	}
-
-	if (carry != 0) {
-		ListNode *node = new ListNode(carry);
 		list.add(node);
 	}
 
