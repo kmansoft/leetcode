@@ -8,7 +8,7 @@ std::ostream& operator<<(std::ostream& os, std::vector<T> v) {
 
 	for (int i = 0; i < v.size(); i += 1) {
 		if (i != 0) {
-			std::cout << ", ";
+			os << ", ";
 		}
 		os << v[i];
 	}
