@@ -5,6 +5,7 @@
 
 struct Word {
 	std::string s;
+	mutable int seed;
 	mutable int count;
 	mutable int used;
 
@@ -29,12 +30,6 @@ bool isSubstring(const std::string& s, int start, size_t wordSize,
 				 size_t wordLen, std::unordered_set<Word>& wordSet) {
 	const std::unordered_set<Word>::const_iterator wordSetEnd = wordSet.end();
 
-	std::unordered_set<Word>::const_iterator wordSetCur = wordSet.begin();
-	while (wordSetCur != wordSetEnd) {
-		wordSetCur->used = 0;
-		++wordSetCur;
-	}
-
 	const size_t end = start + wordSize * wordLen;
 	for (size_t i = start; i < end; i += wordLen) {
 		const Word subWord(s.substr(i, wordLen));
@@ -45,6 +40,10 @@ bool isSubstring(const std::string& s, int start, size_t wordSize,
 			return false;
 		}
 		const Word& subFound = *subFind;
+		if (subFound.seed != start) {
+			subFound.seed = start;
+			subFound.used = 0;
+		}
 		if (subFound.used >= subFound.count) {
 			return false;
 		}
