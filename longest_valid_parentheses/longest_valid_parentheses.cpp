@@ -55,6 +55,12 @@ void test(int expected, const std::string& s) {
 int main() {
 	test(2, "(()");
 
+	test(6, "(()())");
+
+	test(6, "()(())");
+
+	test(2, "()(()");
+
 	test(4, ")()())");
 
 	test(0, "");
