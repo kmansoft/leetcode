@@ -12,7 +12,7 @@ int find_single_number(const std::vector<int>& nums) {
 }
 
 int main() {
-	std::vector l = { 1, 2, 3, 4, 1, 2, 3};
+	std::vector<int> l = { 1, 2, 3, 4, 1, 2, 3};
 
 	std::cout << find_single_number(l) << std::endl;
 }
