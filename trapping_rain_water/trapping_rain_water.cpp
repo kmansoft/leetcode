@@ -30,7 +30,7 @@ int trap(const std::vector<int> &height) {
 }
 
 template <typename T>
-std::ostream &operator<<(std::ostream &os, std::vector<T> v) {
+std::ostream &operator<<(std::ostream &os, const std::vector<T>& v) {
 	os << "[";
 
 	for (int i = 0; i < v.size(); i += 1) {
@@ -40,7 +40,7 @@ std::ostream &operator<<(std::ostream &os, std::vector<T> v) {
 		os << v[i];
 	}
 
-	os << "]" << std::endl;
+	os << "]";
 
 	return os;
 }
