@@ -24,7 +24,7 @@ struct List {
 	}
 };
 
-ListNode* make_list(const std::vector<int> init) {
+ListNode* make_list(const std::initializer_list<int>& init) {
 	List result;
 
 	for (int i : init) {
@@ -75,7 +75,7 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 	return list.head;
 }
 
-void test(const std::vector<int>& v1, const std::vector<int>& v2) {
+void test(const std::initializer_list<int>& v1, const std::initializer_list<int>& v2) {
 	ListNode *l1 = make_list(v1);
 	ListNode *l2 = make_list(v2);
 
